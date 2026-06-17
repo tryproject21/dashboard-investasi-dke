@@ -19,7 +19,7 @@ const Map = ({ data, maxPenghematan, maxInvestasi, mapMetric, onSelectProvince }
   const mapRef = useRef();
 
   useEffect(() => {
-    fetch('/indonesia.geojson')
+    fetch(`${import.meta.env.BASE_URL}indonesia.geojson`)
       .then((response) => response.json())
       .then((data) => setGeoJsonData(data))
       .catch((error) => console.error('Error fetching GeoJSON:', error));

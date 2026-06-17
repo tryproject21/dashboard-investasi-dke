@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
 import { DataProvider } from './context/DataContext';
 import MapDashboard from './pages/MapDashboard';
 import DataTablePage from './pages/DataTablePage';

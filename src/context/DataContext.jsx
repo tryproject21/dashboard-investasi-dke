@@ -16,7 +16,8 @@ export const DataProvider = ({ children }) => {
 
   const loadData = async () => {
     try {
-      const response = await fetch('/Book1.csv');
+      const baseUrl = import.meta.env.BASE_URL;
+      const response = await fetch(`${baseUrl}Book1.csv`);
       const csvString = await response.text();
       setRawCsvString(csvString);
 
