@@ -33,9 +33,7 @@ const DataTablePage = () => {
     setCurrentPage(1);
   }, [searchTerm]);
 
-  if (isLoading) {
-    return <div className="loading-state" style={{ height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.2rem', color: '#64748b' }}>Memuat Tabel Data...</div>;
-  }
+  // Removed from here
 
   // Group projects by Company
   const groupedData = React.useMemo(() => {
@@ -72,6 +70,14 @@ const DataTablePage = () => {
     (g.perusahaan || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
     (g.provinsi || '').toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  // Adjust current page if it exceeds total pages
+  React.useEffect(() => {
+    const maxPage = Math.ceil(filteredGroups.length / itemsPerPage);
+    if (currentPage > maxPage && maxPage > 0) {
+      setCurrentPage(maxPage);
+    }
+  }, [filteredGroups.length, currentPage, itemsPerPage]);
 
   const totalPages = Math.ceil(filteredGroups.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
@@ -136,7 +142,10 @@ const DataTablePage = () => {
       
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
         <div>
-          <h2 style={{ fontSize: '1.8rem', color: '#0f172a', marginBottom: '0.5rem' }}>Rekapitulasi Data Investasi</h2>
+          <h2 style={{ fontSize: '1.8rem', color: '#0f172a', marginBottom: '0.5rem' }}>
+            Rekapitulasi Data Investasi 
+            {isLoading && <span style={{ fontSize: '1rem', color: '#94a3b8', marginLeft: '1rem' }}>(Memperbarui...)</span>}
+          </h2>
           <p style={{ color: '#64748b' }}>Total {groupedData.length} Perusahaan</p>
         </div>
         
